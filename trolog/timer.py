@@ -16,7 +16,6 @@ class Timers(object):
     def __init__(self, config):
         self.config = config
 
-
     def start(self, label):
         if not valid_label(label):
             raise TimerException('Illegal character found in label.')
@@ -25,10 +24,9 @@ class Timers(object):
         if label_fp.exists():
             raise TimerException(
                 'Timer for "{}" already started.'.format(label))
-        
+
         with open(str(label_fp), 'w') as wf:
             wf.write(str(time.time()) + '\n')
-
 
     def stop(self, label):
         if not valid_label(label):
@@ -50,6 +48,10 @@ class Timers(object):
 
         label_fp.unlink()
 
+    def labels(self):
+        unsorted_labels = \
+            [filepath.stem for filepath in self.config.finished_path.iterdir()]
+        return sorted(unsorted_labels)
 
 # active-timers
 #  `-- lbl1.txt

@@ -129,6 +129,16 @@ def stop(args=[]):
         timers.stop(label)
 
 
+def labels(args=[]):
+    if args != []:
+        raise CommandException(
+            'No command arguments supported for "labels" command.')
+
+    label_list = timers.labels()
+    for lbl in label_list:
+        print(lbl)
+
+
 if len(argv) == 1:
     print_usage()
     exit(1)
