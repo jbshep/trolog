@@ -5,8 +5,8 @@ import shutil
 DEFAULT_LOCAL_CONFIG = '.trolog'
 
 class Config(object):
-    def __init__(self):
-        self.path = Path(os.environ['HOME'], DEFAULT_LOCAL_CONFIG)
+    def __init__(self, base=os.environ['HOME']):
+        self.path = Path(base, DEFAULT_LOCAL_CONFIG)
         self.active_path = Path(self.path, 'active-timers')
         self.finished_path = Path(self.path, 'finished-timers')
 
