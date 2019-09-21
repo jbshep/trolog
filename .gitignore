@@ -9,7 +9,10 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 *$py.class
+
+# pytest/coverage
 .coverage
+htmlcov
 
 # Environments
 .env
