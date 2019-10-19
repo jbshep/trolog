@@ -4,10 +4,9 @@ from trolog.config import Config
 
 @pytest.fixture(scope="function")
 def new_config():
-    cfg = Config('.')
-    cfg.init()
+    cfg = Config('./.trolog_test')
     yield cfg
-    cfg.wipe()
+    cfg.delete()
 
 
 def test_startstop_base(new_config):

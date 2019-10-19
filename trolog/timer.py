@@ -52,17 +52,3 @@ class Timers(object):
         unsorted_labels = \
             [filepath.stem for filepath in self.config.finished_path.iterdir()]
         return sorted(unsorted_labels)
-
-# active-timers
-#  `-- lbl1.txt
-#      --------
-#      time
-#
-# finished-timers
-#  `-- lbl2.txt
-#  |   --------
-#  |   start:end:delta
-#  |   start:end:delta
-#  `-- lbl3.txt
-#      --------
-#      start:end:delta
