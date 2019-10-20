@@ -4,8 +4,11 @@ from pathlib import Path
 import time
 
 
-def valid_label(label):
-    return '/' not in label
+def find_invalid_char(label):
+    for ch in label:
+        if not ch.isalnum():
+            return ch
+    return ''
 
 
 class TimerException(Exception):
@@ -17,8 +20,10 @@ class Timers(object):
         self.config = config
 
     def start(self, label):
-        if not valid_label(label):
-            raise TimerException('Illegal character found in label.')
+        invalid_char = find_invalid_char(label)
+        if invalid_char != '':
+            raise TimerException('Illegal character "{}" found in label.'
+                                 .format(invalid_char))
 
         label_fp = Path(self.config.active_path, label + '.txt')
         if label_fp.exists():
@@ -29,8 +34,10 @@ class Timers(object):
             wf.write(str(time.time()) + '\n')
 
     def stop(self, label):
-        if not valid_label(label):
-            raise TimerException('Illegal character found in label.')
+        invalid_char = find_invalid_char(label)
+        if invalid_char != '':
+            raise TimerException('Illegal character "{}" found in label.'
+                                 .format(invalid_char))
 
         label_fp = Path(self.config.active_path, label + '.txt')
         if not label_fp.exists():
