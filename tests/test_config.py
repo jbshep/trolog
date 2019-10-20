@@ -1,6 +1,7 @@
 import pytest
 from trolog.config import Config, ConfigException
 
+
 @pytest.fixture(scope="function")
 def new_config():
     cfg = Config('./.trolog_test')
