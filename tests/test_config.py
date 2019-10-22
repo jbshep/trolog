@@ -11,15 +11,15 @@ def new_config():
 
 def test_create_and_wipe(new_config):
     cfg = new_config
-    cfg.set_store('new_store')
-    assert cfg.has_store('new_store')
-    cfg.wipe_store('new_store')
-    assert not cfg.has_store('new_store')
-    assert cfg.store_name == 'default'
+    cfg.set_project('new_project')
+    assert cfg.has_project('new_project')
+    cfg.wipe_project('new_project')
+    assert not cfg.has_project('new_project')
+    assert cfg.project_name == 'default'
 
 
 def test_fail_wipe_notexist(new_config):
     cfg = new_config
-    assert not cfg.has_store('new_store')
+    assert not cfg.has_project('new_project')
     with pytest.raises(ConfigException):
-        cfg.wipe_store('new_store')
+        cfg.wipe_project('new_project')

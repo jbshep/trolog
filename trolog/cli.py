@@ -52,48 +52,48 @@ class CLI(object):
         if len(args) > 1:
             raise CommandException('Extra arguments: {}'.format(args[1:]))
         elif len(args) == 1:
-            store_name = args[0]
+            project_name = args[0]
         else:
-            store_name = 'default'
+            project_name = 'default'
 
-        if self.config.has_store(store_name):
+        if self.config.has_project(project_name):
             yn = input('{} exists. Do you wish to overwrite (y/n)? '
-                       .format(store_name))
+                       .format(project_name))
             if yn == 'y':
-                print('Overwriting {}.'.format(store_name))
-                self.config.set_store(store_name)
+                print('Overwriting {}.'.format(project_name))
+                self.config.set_project(project_name)
             else:
                 raise CommandException('Aborting.')
         else:
-            print('Creating {}.'.format(store_name))
-            self.config.set_store(store_name)
+            print('Creating {}.'.format(project_name))
+            self.config.set_project(project_name)
 
     def switch(self, args=[]):
         if len(args) > 1:
             raise CommandException('Extra arguments: {}'.format(args[1:]))
         elif len(args) == 1:
-            store_name = args[0]
+            project_name = args[0]
         else:
-            store_name = 'default'
+            project_name = 'default'
 
-        self.config.set_store(store_name)
+        self.config.set_project(project_name)
 
     def wipe(self, args=[]):
         if len(args) > 1:
             raise CommandException('Extra arguments: {}'.format(args[1:]))
         elif len(args) == 1:
-            store_name = args[0]
+            project_name = args[0]
         else:
-            store_name = 'default'
+            project_name = 'default'
 
-        if self.config.has_store(store_name):
-            yn = input('Wiping {}. Are you sure (y/n)? '.format(store_name))
+        if self.config.has_project(project_name):
+            yn = input('Wiping {}. Are you sure (y/n)? '.format(project_name))
             if yn == 'y':
-                self.config.wipe_store(store_name)
+                self.config.wipe_project(project_name)
             else:
                 raise CommandException('Aborting.')
         else:
-            raise CommandException('{} not found.'.format(store_name))
+            raise CommandException('{} not found.'.format(project_name))
 
     def start(self, args=[]):
         if args == []:

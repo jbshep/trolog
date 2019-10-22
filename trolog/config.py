@@ -14,7 +14,7 @@ class Config(object):
         self.trolog_path = Path.home() / basedir
         self.config_path = self.trolog_path / 'config'
         self.params = {}
-        self.store_name = ''
+        self.project_name = ''
         self.active_path = None
         self.finished_path = None
         self.ensure_config()
@@ -29,7 +29,7 @@ class Config(object):
 
         if not self.config_path.exists():
             with open(str(self.config_path), 'w') as cfgfile:
-                cfgfile.write('store_name:default\n')
+                cfgfile.write('project_name:default\n')
 
     def load_config(self):
         with open(str(self.config_path), 'r') as cfgfile:
@@ -37,10 +37,10 @@ class Config(object):
                 name, value = name_value.rstrip().split(':')
                 self.params[name] = value
 
-        self.set_store(self.params['store_name'])
+        self.set_project(self.params['project_name'])
 
     def update_config(self):
-        self.params['store_name'] = self.store_name
+        self.params['project_name'] = self.project_name
         with open(str(self.config_path), 'w') as cfgfile:
             for name in self.params:
                 value = self.params[name]
@@ -53,24 +53,24 @@ class Config(object):
         if not self.finished_path.exists():
             self.finished_path.mkdir(parents=True)
 
-    def set_store(self, store_name):
-        self.store_name = store_name
-        self.store_path = self.trolog_path / 'stores' / store_name
-        self.active_path = self.store_path / 'active-timers'
-        self.finished_path = self.store_path / 'finished-timers'
+    def set_project(self, project_name):
+        self.project_name = project_name
+        self.project_path = self.trolog_path / 'projects' / project_name
+        self.active_path = self.project_path / 'active-timers'
+        self.finished_path = self.project_path / 'finished-timers'
         self.ensure_paths()
         self.update_config()
 
-    def wipe_store(self, store_name='default'):
-        target_store_path = self.trolog_path / 'stores' / store_name
-        if target_store_path.exists():
-            shutil.rmtree(str(target_store_path))
+    def wipe_project(self, project_name='default'):
+        target_project_path = self.trolog_path / 'projects' / project_name
+        if target_project_path.exists():
+            shutil.rmtree(str(target_project_path))
         else:
-            raise ConfigException('{} does not exist.'.format(store_name))
+            raise ConfigException('{} does not exist.'.format(project_name))
 
-        if self.store_name == store_name:
-            self.set_store('default')
+        if self.project_name == project_name:
+            self.set_project('default')
 
-    def has_store(self, store_name):
-        store_path = self.trolog_path / 'stores' / store_name
-        return store_path.exists()
+    def has_project(self, project_name):
+        project_path = self.trolog_path / 'projects' / project_name
+        return project_path.exists()
