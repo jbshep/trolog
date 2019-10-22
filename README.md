@@ -21,3 +21,11 @@ pytest tests
 pytest --cov=trolog tests
 coverage report -m
 ```
+
+## Run Checks (Tests and PEP8)
+
+```
+./check-all.sh
+```
+
+May have to `chmod u+x check-all.sh` first.
